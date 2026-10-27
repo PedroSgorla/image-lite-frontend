@@ -20,7 +20,7 @@ export default function GaleriaPage() {
 
     function renderImageCard(image: Image){
         return(
-            <ImageCard key={image.url} nome ={image.name} src={image.url} tamanho={image.size} dataUpload={image.uploadDate} />
+            <ImageCard key={image.url} nome ={image.name} src={image.url} tamanho={image.size}  extension={image.extension} dataUpload={image.uploadDate} />
         )
     }
 
@@ -30,7 +30,6 @@ export default function GaleriaPage() {
 
     return (
         <Template>
-            
             <section className="flex flex-col items-center justify-center my-5">
                 <div className="flex space-x-4">
                     <input type="text" 
