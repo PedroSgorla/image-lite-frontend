@@ -35,6 +35,7 @@ export const RenderIf: React.FC<RenderIfProps> = ({condition, children}) => {
 
     return false;
 }
+
 const Loading: React.FC = () => {
     return (
         <div role="status">
