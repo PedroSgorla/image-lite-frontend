@@ -1,4 +1,5 @@
 import './globals.css'
+import 'react-toastify/ReactToastfy.min.css'
 import type { Metadata } from 'next'
 import { Roboto } from 'next/font/google'
 
