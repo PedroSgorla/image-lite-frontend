@@ -16,7 +16,7 @@ export const Template: React.FC<TemplateProps> = ({ children, loading = false }:
     return (
         <>
             <Header />
-            <div className={`${loading ? 'animate-pulse' : ''}container mx-auto mt-8 px-4`}>
+            <div className={`${loading ? 'animate-pulse ' : ''}container mx-auto mt-8 px-4`}>
                 <RenderIf condition={loading}>
                     <div className="text-center">
                         <Loading/>
@@ -64,7 +64,7 @@ const Footer: React.FC = () => {
     return (
         <footer className="bg-indigo-950 text-white py-4 mt-8">
             <div className="container mx-auto text-center">
-                Desenvolvido por mim mesmo
+                Desenvolvido por Pedro Sgorla
             </div>
         </footer>
     )
