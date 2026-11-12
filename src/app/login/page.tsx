@@ -1,14 +1,21 @@
 'use client'
 
-import {Template, RenderIf, InputText, Button, FieldError} from '@/components'
+import {Template, RenderIf, InputText, Button, FieldError, useNotification} from '@/components'
 import { useState } from 'react'
 import { LoginForm, formScheme, validationScheme } from './formScheme';
-import { useFormik } from 'formik'; 
+import { useFormik } from 'formik';
+import { useAuth } from '@/resources';
+import { useRouter } from 'next/navigation'; 
+import { AccessToken, Credentials } from '@/resources/user/user.resource';
 
 export default function Login(){
 
     const [loading, setLoad] = useState<boolean>(false);
     const [newUserState, setNewUserState] = useState<boolean>(false);
+
+    const auth = useAuth();
+    const notification = useNotification();
+    const router = useRouter();
 
     const { values, handleChange, handleSubmit, errors} = useFormik<LoginForm>({
         initialValues: formScheme,
@@ -17,7 +24,20 @@ export default function Login(){
     })
 
     async function onSubmit(values: LoginForm){
-        console.log(values)
+        if(!newUserState){
+            const credencials: Credentials = {
+                email: values.email,
+                password: values.password
+            }
+
+            try{
+               const accessToken: AccessToken = await auth.authenticate(credencials);
+               router.push('/galeria')
+            } catch(error: any){
+                const message = error?.message;
+                notification.notify(message, 'error')
+            }
+        }
     }
 
     return (
@@ -88,7 +108,7 @@ export default function Login(){
                                 <Button type='button' style='bg-red-700 hover:bg-red-500 mx-2' label='Cancel' onClick={event => setNewUserState(false)}/>
                             </RenderIf>
 
-                            <RenderIf condition={newUserState}>
+                            <RenderIf condition={!newUserState}>
                                 <Button type='submit' style='bg-indigo-700 hover:bg-indigo-500' label='Login'/>
                                 <Button type='button' style='bg-red-700 hover:bg-red-500 mx-2' label='Sign Up' onClick={event => setNewUserState(true)}/>
                             </RenderIf>

@@ -9,7 +9,7 @@ export interface LoginForm{
 
 export const validationScheme = Yup.object().shape({
     email: Yup.string().trim().required('Email is required!').email('Invalid Email'),
-    password: Yup.string().required('Password is required').min(8, 'Password mus have at least 8 characters'),
+    password: Yup.string().required('Password is required').min(5, 'Password mus have at least 8 characters'),
     passwordMatch: Yup.string().oneOf([Yup.ref('password')], 'Password must match!')
 })
 
